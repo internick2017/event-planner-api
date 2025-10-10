@@ -1,6 +1,6 @@
 # Event Planner API
 
-CSE341 Final Project by Holly, Vinicius, and Nick
+CSE341 Final Project by Nick and Vinicius
 
 ## Setup
 npm install
