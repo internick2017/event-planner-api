@@ -1,9 +1,10 @@
 const swaggerAutogen = require('swagger-autogen')();
 
-// Determine if we're in development or production
-const isProduction = process.env.NODE_ENV === 'production';
-const host = isProduction ? 'event-planner-api.onrender.com' : 'localhost:8080';
-const scheme = isProduction ? 'https' : 'http';
+// Use environment variables or defaults
+const host = process.env.RENDER_EXTERNAL_URL 
+  ? process.env.RENDER_EXTERNAL_URL.replace('https://', '').replace('http://', '')
+  : 'localhost:8080';
+const scheme = process.env.RENDER_EXTERNAL_URL ? 'https' : 'http';
 
 const doc = {
     info: {
