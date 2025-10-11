@@ -32,6 +32,18 @@ const venueRules = {
   updatedAt: 'date'
 };
 
+// USER VALIDATION RULES
+const userRules = {
+  username: 'required|string|min:3',
+  email: 'required|email',
+  firstName: 'required|string|min:2',
+  lastName: 'required|string|min:2',
+  role: 'string|in:user,admin,organizer',
+  googleId: 'string',
+  createdAt: 'date',
+  updatedAt: 'date'
+};
+
 // GENERIC VALIDATION FUNCTION
 function validate(rules) {
   return (req, res, next) => {
@@ -48,5 +60,6 @@ function validate(rules) {
 
 module.exports = {
   saveEvent: validate(eventRules),
-  saveVenue: validate(venueRules)
+  saveVenue: validate(venueRules),
+  saveUser: validate(userRules)
 };
