@@ -1,6 +1,9 @@
 const requireAuth = (req, res, next) => {
   if (req.session && req.session.user) {
     return next();
+  } else if (req.user) {
+    req.session.user = req.user;
+    return next();
   } else {
     return res.status(401).json({ 
       message: 'Authentication required. Please login first.',
