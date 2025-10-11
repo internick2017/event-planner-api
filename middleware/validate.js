@@ -34,12 +34,18 @@ const venueRules = {
 
 // USER VALIDATION RULES
 const userRules = {
-  username: 'required|string|min:3',
-  email: 'required|email',
   firstName: 'required|string|min:2',
-  lastName: 'required|string|min:2',
-  role: 'string|in:user,admin,organizer',
-  googleId: 'string',
+  lastName: 'required|string|min:2', 
+  email: 'required|email',
+  dateOfBirth: 'date',
+  phoneNumber: 'string',
+  'address.street': 'string',
+  'address.city': 'string',
+  'address.state': 'string',
+  'address.zipCode': 'string',
+  'address.country': 'string',
+  'preferences.eventCategories': 'array',
+  'preferences.notifications': 'boolean',
   createdAt: 'date',
   updatedAt: 'date'
 };
