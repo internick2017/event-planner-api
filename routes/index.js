@@ -22,4 +22,14 @@ router.use('/venues',
   require('./venues.js')
 );
 
+router.use('/users',
+  //#swagger.tags=['Users']
+  require('./users.js')
+);
+
+router.use('/auth',
+  //#swagger.tags=['Authentication']
+  require('./auth.js')
+);
+
 module.exports = router;
