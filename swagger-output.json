@@ -37,6 +37,9 @@
     },
     "/api-docs": {
       "get": {
+        "tags": [
+          "Default"
+        ],
         "description": "",
         "responses": {
           "default": {
