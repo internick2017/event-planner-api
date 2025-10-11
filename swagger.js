@@ -1,16 +1,21 @@
 const swaggerAutogen = require('swagger-autogen')();
 
+// Determine if we're in development or production
+const isProduction = process.env.NODE_ENV === 'production';
+const host = isProduction ? 'event-planner-api.onrender.com' : 'localhost:8080';
+const scheme = isProduction ? 'https' : 'http';
+
 const doc = {
     info: {
         title: 'Event Planner API',
         description: 'API for managing events, users, venues, and RSVPs - CSE341 Web Services Course'
     },
-    host: 'localhost:8080',
-    schemes: ['http', 'https'],
+    host: host,
+    schemes: [scheme],
     securityDefinitions: {
         OAuth2: {
             type: 'oauth2',
-            authorizationUrl: 'http://localhost:8080/auth/google',
+            authorizationUrl: `${scheme}://${host}/auth/google`,
             flow: 'implicit',
             scopes: {
                 read: 'Read access',
