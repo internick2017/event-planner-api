@@ -31,9 +31,10 @@ const doc = {
             type: 'object',
             example: {
                 "_id": "672a1b2c3d4e5f6789012347",
+                "username": "johndoe123",
+                "email": "john.doe@example.com",
                 "firstName": "John",
                 "lastName": "Doe",
-                "email": "john.doe@example.com",
                 "dateOfBirth": "1990-05-15",
                 "phoneNumber": "+1-801-555-0123",
                 "address": {
@@ -46,12 +47,22 @@ const doc = {
                 "preferences": {
                     "eventCategories": ["Music", "Sports", "Technology"],
                     "notifications": true
-                }
+                },
+                "role": "user"
             },
             properties: {
                 _id: {
                     type: 'string',
                     example: '672a1b2c3d4e5f6789012347'
+                },
+                username: {
+                    type: 'string',
+                    example: 'johndoe123'
+                },
+                email: {
+                    type: 'string',
+                    format: 'email',
+                    example: 'john.doe@example.com'
                 },
                 firstName: {
                     type: 'string',
@@ -60,11 +71,6 @@ const doc = {
                 lastName: {
                     type: 'string',
                     example: 'Doe'
-                },
-                email: {
-                    type: 'string',
-                    format: 'email',
-                    example: 'john.doe@example.com'
                 },
                 dateOfBirth: {
                     type: 'string',
@@ -98,6 +104,11 @@ const doc = {
                             example: true
                         }
                     }
+                },
+                role: {
+                    type: 'string',
+                    enum: ['user', 'admin', 'organizer'],
+                    example: 'user'
                 }
             }
         },
