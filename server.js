@@ -1,13 +1,30 @@
 const express = require('express');
+const app = express();
 const cors = require('cors');
-const mongoose = require('mongoose');
+const mongodb = require('./data/database.js');
+const bodyParser = require('body-parser');
 require('dotenv').config();
 
-const app = express();
-const PORT = process.env.PORT || 8080;
+const port = process.env.PORT || 8080;
 
-app.use(cors());
-app.use(express.json());
+app
+   .use(bodyParser.json())
+   .use(cors())
+   .use(express.json())
+   .use((req, res, next) => {
+    res.setHeader('Access-Control-Allow-Origin', '*');
+    res.setHeader(
+      'Access-Control-Allow-Headers',
+      'Origin, X-Requested-With, Content-Type, Accept, Z-Key'
+    );
+    res.setHeader('Access-Control-Allow-Methods', 'GET, POST, PUT, DELETE, OPTIONS');
+    next();
+  })
+  .use('/', require('./routes'));
+
+process.on('uncaughtException', (err, origin) => {
+  console.log(`Caught exception: ${err}\nException origin: ${origin}`);
+});
 
 // Basic route
 app.get('/', (req, res) => {
@@ -20,12 +37,12 @@ app.get('/api-docs', (req, res) => {
 });
 
 // Connect to MongoDB 
-if (process.env.MONGODB_URI) {
-  mongoose.connect(process.env.MONGODB_URI)
-    .then(() => console.log('DB connected'))
-    .catch(err => console.log('DB error:', err));
-}
-
-app.listen(PORT, () => {
-  console.log('Server started on port ' + PORT);
+mongodb.initDb((err) => {
+  if (err) {
+    console.log(err);
+  } else {
+    app.listen(port, () => {
+      console.log(`Database connected — server running on port ${port}`);
+    });
+  }
 });
