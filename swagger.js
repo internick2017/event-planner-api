@@ -6,6 +6,8 @@ const host = process.env.RENDER_EXTERNAL_URL
   : 'localhost:8080';
 const scheme = process.env.RENDER_EXTERNAL_URL ? 'https' : 'http';
 
+console.log('Swagger Config:', { host, scheme, renderUrl: process.env.RENDER_EXTERNAL_URL });
+
 const doc = {
     info: {
         title: 'Event Planner API',

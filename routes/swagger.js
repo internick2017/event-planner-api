@@ -9,7 +9,8 @@ router.get('/api-docs', (req, res) => {
   
   // Determine host from request
   const host = req.get('host');
-  const protocol = req.protocol;
+  // Force HTTPS for production (Render), keep HTTP for localhost
+  const protocol = host.includes('onrender.com') ? 'https' : req.protocol;
   
   dynamicSwaggerDoc.host = host;
   dynamicSwaggerDoc.schemes = [protocol];
@@ -18,6 +19,8 @@ router.get('/api-docs', (req, res) => {
   if (dynamicSwaggerDoc.securityDefinitions && dynamicSwaggerDoc.securityDefinitions.OAuth2) {
     dynamicSwaggerDoc.securityDefinitions.OAuth2.authorizationUrl = `${protocol}://${host}/auth/google`;
   }
+  
+  console.log('Dynamic Swagger Config:', { host, protocol, schemes: dynamicSwaggerDoc.schemes });
   
   return swaggerUi.setup(dynamicSwaggerDoc)(req, res);
 });
