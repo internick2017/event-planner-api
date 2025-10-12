@@ -174,6 +174,38 @@ const doc = {
                     example: 'Resource not found'
                 }
             }
+        },
+
+        RSVP: {
+            type: 'object',
+            example: {
+                "eventId": "672a1b2c3d4e5f6789012345",
+                "status": "going",
+                "guestCount": 2,
+                "note": "Bringing a colleague along!"
+            },
+            properties: {
+                eventId: {
+                    type: 'string',
+                    description: 'Reference to the event',
+                    example: '672a1b2c3d4e5f6789012345'
+                },
+                status: {
+                    type: 'string',
+                    enum: ['going', 'interested', 'not_going'],
+                    example: 'going'
+                },
+                guestCount: {
+                    type: 'number',
+                    description: 'Number of guests attending with the user',
+                    example: 2
+                },
+                note: {
+                    type: 'string',
+                    description: 'Optional comment or note from the user',
+                    example: 'Bringing a colleague along!'
+                }
+            }
         }
     }
 };

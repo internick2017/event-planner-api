@@ -18,6 +18,11 @@ npm i mongoose
 npm i cors
 npm i dotenv
 npm i validatorjs
+npm i express-session
+npm i passport
+npm i passport-oauth2-strategy
+npm i passport-google-oauth2
+npm i jest
 
 npm start
 

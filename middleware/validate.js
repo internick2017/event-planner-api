@@ -50,6 +50,17 @@ const userRules = {
   updatedAt: 'date'
 };
 
+// RSVP VALIDATION RULES
+const rsvpRules = {
+  eventId: 'required|string',
+  userId: 'string',
+  status: 'required|string|in:going,interested,not_going',
+  guestCount: 'numeric|min:0',
+  note: 'string|min:3',
+  createdAt: 'date',
+  updatedAt: 'date'
+};
+
 // GENERIC VALIDATION FUNCTION
 function validate(rules) {
   return (req, res, next) => {
@@ -67,5 +78,6 @@ function validate(rules) {
 module.exports = {
   saveEvent: validate(eventRules),
   saveVenue: validate(venueRules),
-  saveUser: validate(userRules)
+  saveUser: validate(userRules),
+  saveRSVP: validate(rsvpRules)
 };

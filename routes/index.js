@@ -22,6 +22,11 @@ router.use('/venues',
   require('./venues.js')
 );
 
+router.use('/rsvp',
+  //#swagger.tags=['RSVP']
+  require('./rsvp.js')
+);
+
 router.use('/users',
   //#swagger.tags=['Users']
   require('./users.js')

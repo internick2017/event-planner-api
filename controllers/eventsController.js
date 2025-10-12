@@ -1,7 +1,6 @@
 const mongodb = require('../data/database');
 const ObjectId = require('mongodb').ObjectId;
 
-
 // Get all events
 const getAll = async (req, res) => {
   try {
@@ -46,15 +45,25 @@ const getSingle = async (req, res) => {
 // Create a single event
 const createEvent = async (req, res) => {
   try {
+    const venueId = new ObjectId(req.body.venueId);
+    const venueExists = await mongodb
+      .getDatabase()
+      .db()
+      .collection('venues')
+      .findOne({ _id: venueId });
+    if (!venueExists) {
+      return res.status(400).json({ message: 'Invalid venueId: venue not found.' });
+    }
+
     const event = {
       title: req.body.title,
       description: req.body.description,
       date: req.body.date,
       endDate: req.body.endDate,
       time: req.body.time,
-      venueId: new ObjectId(req.body.venueId),
+      venueId,
       category: req.body.category,
-      organizer: req.body.organizer, // req.session.user.displayName || req.session.user.username,
+      organizer: req.session.user.username,
       price: req.body.price,
       status: req.body.status,
       createdAt: new Date(),
@@ -79,6 +88,16 @@ const updateEvent = async (req, res) => {
       return res.status(400).json('Must use a valid event id to update an event.');
     }
 
+    const venueId = new ObjectId(req.body.venueId);
+    const venueExists = await mongodb
+      .getDatabase()
+      .db()
+      .collection('venues')
+      .findOne({ _id: venueId });
+    if (!venueExists) {
+      return res.status(400).json({ message: 'Invalid venueId: venue not found.' });
+    }
+
     const eventId = new ObjectId(req.params.id);
     const event = {
       title: req.body.title,
@@ -86,9 +105,9 @@ const updateEvent = async (req, res) => {
       date: req.body.date,
       endDate: req.body.endDate,
       time: req.body.time,
-      venueId: new ObjectId(req.body.venueId),
+      venueId,
       category: req.body.category,
-      organizer: req.body.organizer, // req.session.user.displayName || req.session.user.username,
+      organizer: req.session.user.username,
       price: req.body.price,
       status: req.body.status,
       updatedAt: new Date()
