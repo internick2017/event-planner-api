@@ -99,7 +99,10 @@ passport.deserializeUser(async (id, done) => {
 app
    .use(express.static('public'))
    .use(session({
-     secret: process.env.SESSION_SECRET,
+     secret: process.env.SESSION_SECRET || (() => {
+       if (process.env.NODE_ENV !== 'test') console.warn('WARNING: SESSION_SECRET not set, using insecure default');
+       return 'dev-fallback-secret-change-in-production';
+     })(),
      resave: false,
      saveUninitialized: false,
      cookie: { secure: false, maxAge: 24 * 60 * 60 * 1000 }
