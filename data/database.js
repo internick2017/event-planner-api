@@ -4,10 +4,7 @@ const mongoose = require('mongoose');
 let database; 
 
 const initDb = (callback) => {
-    mongoose.connect(process.env.MONGODB_URI, {
-        useNewUrlParser: true,
-        useUnifiedTopology: true, 
-    })
+    mongoose.connect(process.env.MONGODB_URI)
     .then(() => {
         database = mongoose.connection.client;
         console.log('Mongoose connected to MongoDB!');

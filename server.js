@@ -2,7 +2,6 @@ const express = require('express');
 const app = express();
 const cors = require('cors');
 const mongodb = require('./data/database.js');
-const bodyParser = require('body-parser');
 const session = require('express-session');
 const passport = require('passport');
 const GoogleStrategy = require('passport-google-oauth20').Strategy;
@@ -100,36 +99,21 @@ passport.deserializeUser(async (id, done) => {
 app
    .use(express.static('public'))
    .use(session({
-     secret: process.env.SESSION_SECRET || 'your-secret-key',
+     secret: process.env.SESSION_SECRET,
      resave: false,
      saveUninitialized: false,
      cookie: { secure: false, maxAge: 24 * 60 * 60 * 1000 }
    }))
    .use(passport.initialize())
    .use(passport.session())
-   .use(bodyParser.json())
-   .use(cors())
    .use(express.json())
+   .use(cors())
    .use((req, res, next) => {
-    res.setHeader('Access-Control-Allow-Origin', '*');
-    res.setHeader(
-      'Access-Control-Allow-Headers',
-      'Origin, X-Requested-With, Content-Type, Accept, Z-Key'
-    );
-    res.setHeader('Access-Control-Allow-Methods', 'GET, POST, PUT, DELETE, OPTIONS');
-    next();
-  })
-  .use((req, res, next) => {
     if (req.user) {
       req.session.user = req.user;
     }
     next();
-  })
-  .use('/', require('./routes'));
-
-process.on('uncaughtException', (err, origin) => {
-  console.log(`Caught exception: ${err}\nException origin: ${origin}`);
-});
+  });
 
 app.get('/', (req, res) => {
   res.send(`
@@ -137,6 +121,8 @@ app.get('/', (req, res) => {
     <p><a href="/api-docs">API Documentation</a></p>
   `);
 });
+
+app.use('/', require('./routes'));
 
 mongodb.initDb((err) => {
   if (err) {

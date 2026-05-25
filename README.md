@@ -1,32 +1,59 @@
 # Event Planner API
 
-CSE341 Final Project by Nick and Vinicius
+RESTful API for managing events, venues, and RSVPs. Built with Node.js, Express, MongoDB, and OAuth2 Google authentication.
 
-## Live Demo
-https://event-planner-api-oihl.onrender.com/
+**Live demo:** https://event-planner-api-oihl.onrender.com/api-docs
 
-## Setup
+## Features
 
+- Full CRUD for **Events**, **Venues**, **RSVPs**, and **Users**
+- OAuth2 Google authentication via Passport.js
+- Interactive Swagger/OpenAPI documentation
+- Jest test suite (12 tests across 4 resources)
+- Session-based auth with protected write endpoints
+
+## Stack
+
+- **Runtime:** Node.js + Express 5
+- **Database:** MongoDB Atlas + Mongoose 9
+- **Auth:** Passport.js + Google OAuth2
+- **Docs:** Swagger UI (swagger-autogen)
+- **Testing:** Jest + Supertest
+
+## Getting started
+
+```bash
 npm install
-npm i express
-npm i express-validator
-npm i swagger
-npm i swagger-autogen
-npm i swagger-ui-express
-npm i mongodb
-npm i mongoose
-npm i cors
-npm i dotenv
-npm i validatorjs
-npm i express-session
-npm i passport
-npm i passport-oauth2-strategy
-npm i passport-google-oauth2
-npm i jest
+```
 
-npm start
+Create a `.env` file:
 
-## Todo
-- Add routes
-- Connect MongoDB
-- Add swagger docs
+```env
+MONGODB_URI=your_mongodb_atlas_uri
+GOOGLE_CLIENT_ID=your_google_client_id
+GOOGLE_CLIENT_SECRET=your_google_client_secret
+GOOGLE_CALLBACK_URL=http://localhost:8080/auth/google/callback
+SESSION_SECRET=your_session_secret
+PORT=8080
+```
+
+```bash
+npm run dev      # development (nodemon)
+npm start        # production
+npm test         # run test suite
+npm run swagger  # regenerate swagger-output.json
+```
+
+API docs available at `http://localhost:8080/api-docs`.
+
+## API overview
+
+| Resource | Endpoints |
+|----------|-----------|
+| Events   | `GET/POST /events/` · `GET/PUT/DELETE /events/:id` |
+| Venues   | `GET/POST /venues/` · `GET/PUT/DELETE /venues/:id` |
+| RSVPs    | `GET/POST /rsvp/` · `GET/PUT/DELETE /rsvp/:id` |
+| Users    | `GET/POST /users/` · `GET/PUT/DELETE /users/:id` |
+| Auth     | `GET /auth/google` · `GET /auth/status` · `GET /auth/logout` |
+
+Write endpoints (POST/PUT/DELETE) require Google OAuth2 authentication.
