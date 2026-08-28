@@ -11,7 +11,7 @@ console.log('Swagger Config:', { host, scheme, renderUrl: process.env.RENDER_EXT
 const doc = {
     info: {
         title: 'Event Planner API',
-        description: 'API for managing events, users, venues, and RSVPs - CSE341 Web Services Course'
+        description: 'REST API for managing events, venues, users and RSVPs, with Google OAuth2 authentication, full CRUD, validation and Jest test coverage.'
     },
     host: host,
     schemes: [scheme],

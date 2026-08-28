@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Event Planner API — API Documentation</title>
+  <link rel="stylesheet" href="https://unpkg.com/swagger-ui-dist@5.17.14/swagger-ui.css">
+  <style>
+    body { margin: 0; background: #fafafa; }
+    .note {
+      font: 14px/1.5 -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+      background: #1e3a8a; color: #fff; padding: 14px 20px;
+    }
+    .note strong { display: block; font-size: 15px; margin-bottom: 3px; }
+    .note a { color: #7dd3fc; }
+    .swagger-ui .topbar { display: none; }
+  </style>
+</head>
+<body>
+  <div class="note">
+    <strong>Event Planner API — static API reference</strong>
+    This page renders the project's OpenAPI specification directly, so it is always available.
+    The request executor is disabled because no server is running behind it.
+    Source code: <a href="https://github.com/internick2017/event-planner-api">internick2017/event-planner-api</a>
+  </div>
+  <div id="swagger-ui"></div>
+  <script src="https://unpkg.com/swagger-ui-dist@5.17.14/swagger-ui-bundle.js" crossorigin></script>
+  <script>
+    window.onload = function () {
+      window.ui = SwaggerUIBundle({
+        url: 'openapi.json',
+        dom_id: '#swagger-ui',
+        deepLinking: true,
+        supportedSubmitMethods: [],
+        defaultModelsExpandDepth: 0,
+        docExpansion: 'list',
+        presets: [SwaggerUIBundle.presets.apis]
+      })
+    }
+  </script>
+</body>
+</html>
