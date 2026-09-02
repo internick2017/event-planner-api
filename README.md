@@ -2,7 +2,7 @@
 
 RESTful API for managing events, venues, and RSVPs. Built with Node.js, Express, MongoDB, and OAuth2 Google authentication.
 
-**Live demo:** https://event-planner-api-oihl.onrender.com/api-docs
+**Documentation:** Interactive Swagger documentation is available at `/api-docs` when the project runs locally.
 
 ## Features
 
